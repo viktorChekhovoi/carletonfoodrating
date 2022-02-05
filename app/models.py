@@ -12,7 +12,7 @@ class DiningHall(db.Model):
 class Station(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), unique=False)
-    locationId = db.Column(db.Integer, db.ForeignKey(DiningHall.id))
+    locationId = db.Column(db.Integer, db.ForeignKey("dining_hall.id"))
 
     foods = db.relationship('Food', backref='station_location', lazy='dynamic')
 

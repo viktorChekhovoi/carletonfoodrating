@@ -2,8 +2,19 @@ import app
 from app import models
 from app.models import *
 
-burton = DiningHall.query.all()[0]
-ldc = DiningHall.query.all()[1]
+DiningHall.query.delete()
+Station.query.delete()
+
+burton = DiningHall(name="Burton")
+ldc = DiningHall(name="LDC")
+
+db.session.add(burton)
+db.session.add(ldc)
+db.session.commit()
+
+print(DiningHall.query.all())
+#burton = DiningHall.query.all()[0]
+#ldc = DiningHall.query.all()[1]
 
 burton_kettle = Station(name="Kettle", hall=burton)
 burton_nourish = Station(name="Nourish", hall=burton)
@@ -33,4 +44,7 @@ db.session.add(ldc_soup)
 
 
 print("Added everything\n\n\n")
-print(Station.query.where(Station.hall==burton).first())
+
+#db.session.commit()
+print(Station.query.where(Station.hall==burton).all())
+print(Station.query.where(Station.hall==ldc).all())
