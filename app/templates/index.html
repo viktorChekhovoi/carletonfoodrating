@@ -6,16 +6,16 @@
     <body>
         <h1>Today Burton has:</h1>
         <ol>
-        {% for food_type in food %}
+        {% for station in food %}
             <li> {{ food_type }}
             <ol>
-            {% for food_item in food[food_type] %}
+            {% for food_item in food[station] %}
                 <li>{{ food_item["name"] }}: {{ food_item["rate"] }}/10
                     <!--<form method="post" novalidate>
                         <label for="rating">Your rating:</label>
                         <input type="number" min=0 max=10>  <input type="submit" value="Submit">
                     </form>-->
-
+                    {% set form = forms[station][food_item] %}
                     <form action="" method="post" novalidate>
                         {{ form.hidden_tag() }}
                             {{ form.rating.label }}
