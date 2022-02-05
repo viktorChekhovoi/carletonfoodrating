@@ -1,19 +1,16 @@
+from urllib import request
 from flask import render_template
 from app import app
+from app.forms import RateForm
+from flask import render_template, flash, redirect
 
 
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 def index():
-    user = {'username': 'Miguel'}
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
-    return render_template('index.html', title='Home', user=user, posts=posts)
+    food = {"Pizza": [{"name": "Cheese", "rate": 9}, {"name": "Pepperoni", "rate": 8}]}
+    form = RateForm()
+    if form.validate_on_submit():
+        flash(f'Rated an item {form.rating.data} out of 10')
+        return redirect('/index')
+    return render_template('index.html', food=food, form=form)

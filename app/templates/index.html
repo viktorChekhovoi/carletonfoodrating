@@ -1,6 +1,32 @@
-{% extends "base.html" %}
+<!doctype html>
+<html>
+    <head>
+        <title>Welcome to Carleton Food Rating</title>
+    </head>
+    <body>
+        <h1>Today Burton has:</h1>
+        <ol>
+        {% for food_type in food %}
+            <li> {{ food_type }}
+            <ol>
+            {% for food_item in food[food_type] %}
+                <li>{{ food_item["name"] }}: {{ food_item["rate"] }}/10
+                    <!--<form method="post" novalidate>
+                        <label for="rating">Your rating:</label>
+                        <input type="number" min=0 max=10>  <input type="submit" value="Submit">
+                    </form>-->
 
-{% block content %}
-    <h1>Today Burton has decent food!</h1>
-    <div><p>Tomorrow? Who knows (they might)</p></div>
-{% endblock %}
+                    <form action="" method="post" novalidate>
+                        {{ form.hidden_tag() }}
+                            {{ form.rating.label }}
+                            {{ form.rating(size=32) }}
+                        {{ form.submit() }}
+                    </form>
+                </li>
+            {% endfor %}
+            </ol>
+            </li>
+        {% endfor %}
+        </ol>
+    </body>
+</html>
