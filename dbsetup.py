@@ -45,6 +45,6 @@ db.session.add(ldc_soup)
 
 print("Added everything\n\n\n")
 
-#db.session.commit()
+db.session.commit()
 print(Station.query.where(Station.hall==burton).all())
 print(Station.query.where(Station.hall==ldc).all())
