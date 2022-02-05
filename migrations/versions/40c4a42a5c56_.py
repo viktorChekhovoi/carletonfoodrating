@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 3e5e65e54ad6
+Revision ID: 40c4a42a5c56
 Revises: 
-Create Date: 2022-02-05 20:59:48.540805
+Create Date: 2022-02-05 21:11:48.222199
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '3e5e65e54ad6'
+revision = '40c4a42a5c56'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,19 +21,7 @@ def upgrade():
     op.create_table('dining_hall',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=128), nullable=True),
-    sa.Column('station1', sa.String(length=128), nullable=True),
-    sa.Column('station2', sa.String(length=128), nullable=True),
-    sa.Column('station3', sa.String(length=128), nullable=True),
-    sa.Column('station4', sa.String(length=128), nullable=True),
-    sa.Column('station5', sa.String(length=128), nullable=True),
-    sa.Column('station6', sa.String(length=128), nullable=True),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('station1'),
-    sa.UniqueConstraint('station2'),
-    sa.UniqueConstraint('station3'),
-    sa.UniqueConstraint('station4'),
-    sa.UniqueConstraint('station5'),
-    sa.UniqueConstraint('station6')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('food',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -44,7 +32,6 @@ def upgrade():
     op.create_table('station',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=128), nullable=True),
-    sa.Column('food', sa.Text(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
