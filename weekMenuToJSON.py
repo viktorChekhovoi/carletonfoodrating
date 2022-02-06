@@ -11,24 +11,14 @@ foodTypeRows = soup.find_all(class_="row")
 
 menuOfWeek = {}
 
-daysNumToString = {
-	0: "Monday",
-	1: "Tuesday",
-	2: "Wednesday",
-	3: "Thursday",
-	4: "Friday",
-	5: "Saturday",
-	6: "Sunday",
-}
-
 for i in range(0, 7):
-	menuOfWeek[daysNumToString[i]] = {}
+	menuOfWeek[i] = {}
 	if (i < 6):
-		menuOfWeek[daysNumToString[i]]["Breakfast"] = {}
-		menuOfWeek[daysNumToString[i]]["Lunch"] = {}
+		menuOfWeek[i]["Breakfast"] = {}
+		menuOfWeek[i]["Lunch"] = {}
 	else:
-		menuOfWeek[daysNumToString[i]]["Brunch"] = {}
-	menuOfWeek[daysNumToString[i]]["Dinner"] = {}
+		menuOfWeek[i]["Brunch"] = {}
+	menuOfWeek[i]["Dinner"] = {}
 
 for foodTypeRow in foodTypeRows:
 	foodTypeName = foodTypeRow.find(class_="spacer").string
@@ -55,12 +45,12 @@ for foodTypeRow in foodTypeRows:
 				dinner.append(mealName) 
 
 		if day < 6:
-			menuOfWeek[daysNumToString[day]]["Breakfast"][foodTypeName] = breakfast
-			menuOfWeek[daysNumToString[day]]["Lunch"][foodTypeName] = lunch
+			menuOfWeek[day]["Breakfast"][foodTypeName] = breakfast
+			menuOfWeek[day]["Lunch"][foodTypeName] = lunch
 		else:
-			menuOfWeek[daysNumToString[day]]["Brunch"][foodTypeName] = brunch
+			menuOfWeek[day]["Brunch"][foodTypeName] = brunch
 			
-		menuOfWeek[daysNumToString[day]]["Dinner"][foodTypeName] = dinner
+		menuOfWeek[day]["Dinner"][foodTypeName] = dinner
 
 
 with open("menu_of_week.json", "w") as outfile:
