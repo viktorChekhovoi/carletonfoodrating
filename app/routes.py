@@ -1,6 +1,6 @@
 from email.policy import default
 from urllib import request
-from flask import render_template
+from flask import render_template, request
 from app import app, db, foods
 from app.forms import RateForm
 from app.models import DiningHall, Station, Food, Rating
@@ -32,7 +32,7 @@ def makeForms(menus: str):
                     forms[meal][station][foodItem]["form"] = newForm
                     food_db = Food.query.filter_by(name=foodItem).all()[0]
                     try:
-                        forms[meal][station][foodItem]["rate"] = food_db.average_rating
+                        forms[meal][station][foodItem]["rate"] = "{:.2f}".format(food_db.rating())
                     except:
                         forms[meal][station][foodItem]["rate"] = 0.0
     return forms
@@ -63,14 +63,14 @@ def index():
             for foodItem in forms[meal][station]:
                 form = forms[meal][station][foodItem]["form"]
                 if form.validate_on_submit():
-                    food_db = Food.query.filter_by(name=foodItem).all()
-                    if len(food_db) == 0:
+                    if request.form['fieldName'] == f'{foodItem}:{station}':
+                        food_db = Food.query.filter_by(name=foodItem).all()
+                        if len(food_db) == 0:
+                            return redirect('/')
+                        food_db = food_db[0]
+                        food_db.averate_rating = updateAverage(food_db, form)
+                        db.session.add(food_db)
+                        db.session.commit()
                         return redirect('/')
-                    food_db = food_db[0]
-                    food_db.averate_rating = updateAverage(food_db, form)
-                    db.session.add(food_db)
-                    db.session.commit()
-                    print(f"Updated average for {foodItem}, it's now {Food.query.filter_by(name=foodItem).all()[0].average_rating}")
-                    return redirect('/')
 
     return render_template('index.html', food=foods, forms=forms)

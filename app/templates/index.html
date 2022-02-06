@@ -2,32 +2,36 @@
 <html>
     <head>
         <title>Welcome to Carleton Food Rating</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+        <link rel="stylesheet" href={{ url_for('static', filename = 'styles.css') }}>
     </head>
     <body>
         <h1>Today Burton has:</h1>
-        <ol>
+        <ul>
         {% for meal in forms %}
-            <li> For {{ meal }}:
-            <ol>
+            <details>
+                <summary>For {{ meal }}:</summary>
+            <ul>
                 {% for station in forms[meal] %}
                 <li>At {{ station }} they have:</li>
                     <ol>
                     {% for foodItem in forms[meal][station] %}
                     <li>{{ foodItem }}: {{ forms[meal][station][foodItem]["rate"] }}/10
                         {% set form = forms[meal][station][foodItem]["form"] %}
-                        <form action="" method="post" novalidate>
+                        <form action="" method="post" novalidate font-size=1em>
                             {{ form.hidden_tag() }}
-                                {{ form.rating.label }}
-                                {{ form.rating(size=32) }}
+                            {{ form.rating.label }}
+                            {{ form.rating }}
+                            <input type="hidden" name="fieldName" value="{{ foodItem }}:{{ station }}">
                             {{ form.submit() }}
                         </form>
                     </li> 
                     {% endfor %}
-                    </ol>
+                </ol>
                 {% endfor %}
-            </ol>
+            </ul>
             </li>
+        </details>
         {% endfor %}
-        </ol>
     </body>
 </html>
