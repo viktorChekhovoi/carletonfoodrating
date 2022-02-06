@@ -1,44 +1,42 @@
+from bs4 import BeautifulSoup
 import requests, json
 from xml.etree.ElementTree import fromstring
 from xmljson import parker, Parker
-
-burtonWebpage = requests.get("https://carleton.cafebonappetit.com/cafe/burton/")
-
-#burtonJson = json.dumps(parker.data(fromstring(str(burtonWebpage.text))))
-burtonHtml = burtonWebpage.text
-
-endCutOff = '''<section class="panel s-wrapper site-panel site-panel--dietary_preferences"
-				id="icons"
-				data-index="13"
-				data-js="panel"
-				data-type="dietary_preferences"
-									data-jump-nav-title="Icons"
-					data-url-key="icons"
-								data-modular-content>
-	
-			<div class="l-container">'''
-endCutOffIndex = burtonHtml.index(endCutOff)
-trimmedHtml = burtonHtml[0:endCutOffIndex]
-print(trimmedHtml)
-frontCutOff = '''<script>
-			(function() {
-				Bamco = (typeof Bamco !== "undefined") ? Bamco : {};
-				Bamco.api_url = {
-					items: 'https://legacy.cafebonappetit.com/api/2/items?format=jsonp',
-					cafes: 'https://legacy.cafebonappetit.com/api/2/cafes?format=jsonp',
-					menus: 'https://legacy.cafebonappetit.com/api/2/menus?format=jsonp'
-				};
-				Bamco.current_cafe = {
-					name: 'Burton',
-					id: 244				};
-				Bamco.view_tier = 1;'''
-#frontCutOffIndex = trimmedHtml.index(frontCutOff)
-#trimmedHtml = trimmedHtml[frontCutOffIndex::]
+from lxml import etree
 
 
-print(trimmedHtml)
+class Parser():
 
-# What we need to extract:
-# Is it open or closed
-# Each category
-# Within each category, every menu item in it
+    def __init__(self, diningHall: str):
+        self.diningHall = diningHall
+        if (self.diningHall == "ldc"):
+            self.webPage = "https://carleton.cafebonappetit.com/cafe/east-hall/"
+        else:
+            self.webpage = "https://carleton.cafebonappetit.com/cafe/burton/"
+        self.menuLink = ""
+
+    def isOpen(self):
+        xpath = '//*[@id="cafe-hours"]/div/div/div/div[2]/div[1]/div'
+        result = requests.get(self.webpage)
+        soup = BeautifulSoup(result.content, "html.parser")
+        dom = etree.HTML(str(soup))
+        status = dom.xpath(xpath)[0].text
+        print(status)
+        return status != "Currently Closed"
+
+
+    def getMenu(self):
+        menuXpath = ""
+        if self.isOpen():
+            print("open")
+            menuXpath = '//*[@id="site-panel__daypart-print-menu-61ff0d5092af0"]/li[2]/a'
+        else:
+            print("closed")
+            menuXpath = '//*[@id="site-panel__daypart-print-menu-61ff45ccbc29c"]/li[2]/a'
+        result = requests.get(self.webpage)
+        soup = BeautifulSoup(result.content, "html.parser")
+        dom = etree.HTML(str(soup))
+        menu = dom.xpath(menuXpath)
+        print(menu)
+        self.menu = requests.get(menu[0].attrib['href'])
+        return self.menu

@@ -1,0 +1,293 @@
+{
+    "Brunch": {
+        "KETTLES": {
+            "oatmeal": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2e140d0>",
+                "rate": 0.0
+            },
+            "vegetable chili": {
+                "form": "<app.forms.RateForm object at 0x7f9ff0f09520>",
+                "rate": 0.0
+            }
+        },
+        "NOURISH": {
+            "baked ham": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2eaaac0>",
+                "rate": 0.0
+            },
+            "au gratin potatoes": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2ef3e80>",
+                "rate": 0.0
+            },
+            "roasted yellow squash and zucchini": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2ef37c0>",
+                "rate": 0.0
+            }
+        },
+        "GRILL": {
+            "mashed potatoes": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2eeef10>",
+                "rate": 0.0
+            },
+            "lime mint grilled chicken": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2eeef40>",
+                "rate": 0.0
+            },
+            "crispy tofu with buffalo sauce": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2eeebe0>",
+                "rate": 0.0
+            },
+            "sauteed onions and peppers": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2eee0a0>",
+                "rate": 0.0
+            },
+            "sauteed mushrooms": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f13d60>",
+                "rate": 0.0
+            },
+            "waffle fries": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f136a0>",
+                "rate": 0.0
+            },
+            "grilled ham and swiss": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f13b80>",
+                "rate": 0.0
+            }
+        },
+        "PIZZA": {
+            "pepperoni": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f136d0>",
+                "rate": 0.0
+            },
+            "beef philly": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f13ac0>",
+                "rate": 0.0
+            },
+            "Hastings Dairy Co-Op provolone and mozzarella cheese": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f16e80>",
+                "rate": 0.0
+            },
+            "made without gluten pizza available upon request": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f164f0>",
+                "rate": 0.0
+            }
+        },
+        "PASTA": {
+            "pasta": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f16d30>",
+                "rate": 0.0
+            },
+            "marinara": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f16970>",
+                "rate": 0.0
+            },
+            "Hastings Dairy Co-Op alfredo": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f16610>",
+                "rate": 0.0
+            }
+        },
+        "GLOBAL": {
+            "cage free scrambled eggs": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f1afa0>",
+                "rate": 0.0
+            },
+            "cage free scrambled eggs with cheese": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f1abb0>",
+                "rate": 0.0
+            },
+            "pork sausage": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f1a790>",
+                "rate": 0.0
+            },
+            "vegetarian sausage": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f1ae50>",
+                "rate": 0.0
+            },
+            "breakfast potatoes": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f1ed60>",
+                "rate": 0.0
+            },
+            "vanilla cinnamon French toast": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f1e4f0>",
+                "rate": 0.0
+            },
+            "maple syrup": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f1ec10>",
+                "rate": 0.0
+            },
+            "Hastings Dairy Co-Op whipped cream": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f1e7c0>",
+                "rate": 0.0
+            },
+            "Hastings Dairy Co-Op whipped butter": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f1eb50>",
+                "rate": 0.0
+            }
+        },
+        "SPECIALS": {},
+        "MARKET SALADS": {},
+        "DESSERT": {
+            "almond wedding cookie": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f23e80>",
+                "rate": 0.0
+            },
+            "oat butterscotch cookies": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f23280>",
+                "rate": 0.0
+            },
+            "cherry cobbler": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f23ee0>",
+                "rate": 0.0
+            },
+            "s'mores bar": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f23bb0>",
+                "rate": 0.0
+            },
+            "chocolate sweet cake": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f238e0>",
+                "rate": 0.0
+            }
+        }
+    },
+    "Dinner": {
+        "KETTLES": {
+            "vegetable chili": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f28fa0>",
+                "rate": 0.0
+            },
+            "tom kha gai with fish sauce": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f283a0>",
+                "rate": 0.0
+            }
+        },
+        "BREAKFAST GRILL": {},
+        "BREAKFAST SKILLET": {},
+        "BREAKFAST": {},
+        "NOURISH": {
+            "Winter squash curry": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f28a00>",
+                "rate": 0.0
+            },
+            "steamed basmati rice": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f28fd0>",
+                "rate": 0.0
+            },
+            "naan": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f2ed60>",
+                "rate": 0.0
+            }
+        },
+        "GRILL": {
+            "lime mint grilled chicken": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f2e460>",
+                "rate": 0.0
+            },
+            "crispy tofu with buffalo sauce": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f2ec10>",
+                "rate": 0.0
+            },
+            "sauteed onions and peppers": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f2e7c0>",
+                "rate": 0.0
+            },
+            "sauteed mushrooms": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f2eb50>",
+                "rate": 0.0
+            },
+            "waffle fries": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f32e80>",
+                "rate": 0.0
+            },
+            "grilled ham and swiss": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f322e0>",
+                "rate": 0.0
+            },
+            "Ferndale Market turkey sloppy joes": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f32d30>",
+                "rate": 0.0
+            }
+        },
+        "PIZZA": {
+            "pepperoni": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f32970>",
+                "rate": 0.0
+            },
+            "beef philly": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f32610>",
+                "rate": 0.0
+            },
+            "Hastings Dairy Co-Op provolone and mozzarella cheese": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f4cfa0>",
+                "rate": 0.0
+            },
+            "made without gluten pizza available upon request": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f4c7c0>",
+                "rate": 0.0
+            }
+        },
+        "PASTA": {
+            "pasta": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f4c9d0>",
+                "rate": 0.0
+            },
+            "marinara": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f4ce50>",
+                "rate": 0.0
+            },
+            "Hastings Dairy Co-Op alfredo": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f50d60>",
+                "rate": 0.0
+            },
+            "roasted Sogn Valley Farms tetsukabuto squash": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f506a0>",
+                "rate": 0.0
+            }
+        },
+        "GLOBAL": {
+            "taco bar": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f50b80>",
+                "rate": 0.0
+            },
+            "chipotle chicken": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f504c0>",
+                "rate": 0.0
+            },
+            "ancho chili tofu": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f50ac0>",
+                "rate": 0.0
+            },
+            "Mexican rice": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f54e80>",
+                "rate": 0.0
+            },
+            "refried beans": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f541f0>",
+                "rate": 0.0
+            },
+            "Hastings Dairy Co-Op sour cream, shredded cheddar cheese": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f54ee0>",
+                "rate": 0.0
+            },
+            "salsa, jalapeños, tomatoes, onions, olives, shredded lettuce": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f54bb0>",
+                "rate": 0.0
+            }
+        },
+        "SPECIALS": {},
+        "MARKET SALADS": {
+            "red beans and rice salad": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f548e0>",
+                "rate": 0.0
+            },
+            "sesame vegetable and rice noodle salad": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f5bfa0>",
+                "rate": 0.0
+            },
+            "mediterranean wheat berry salad": {
+                "form": "<app.forms.RateForm object at 0x7f9ff2f5b3a0>",
+                "rate": 0.0
+            }
+        },
+        "DESSERT": {}
+    }
+}

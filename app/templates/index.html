@@ -6,21 +6,24 @@
     <body>
         <h1>Today Burton has:</h1>
         <ol>
-        {% for station in food %}
-            <li> {{ station }}
+        {% for meal in forms %}
+            <li> For {{ meal }}:
             <ol>
-                {% for food_item in food[station] %}
-                <li>{{ food_item["name"] }}: {{ food_item["rate"] }}/10
-    
-                        
-                    {% set form = forms[station][food_item["name"]] %}
-                    <form action="" method="post" novalidate>
-                        {{ form.hidden_tag() }}
-                            {{ form.rating.label }}
-                            {{ form.rating(size=32) }}
-                        {{ form.submit() }}
-                    </form>
-                </li>
+                {% for station in forms[meal] %}
+                <li>At {{ station }} they have:</li>
+                    <ol>
+                    {% for foodItem in forms[meal][station] %}
+                    <li>{{ foodItem }}: {{ forms[meal][station][foodItem]["rate"] }}/10
+                        {% set form = forms[meal][station][foodItem]["form"] %}
+                        <form action="" method="post" novalidate>
+                            {{ form.hidden_tag() }}
+                                {{ form.rating.label }}
+                                {{ form.rating(size=32) }}
+                            {{ form.submit() }}
+                        </form>
+                    </li> 
+                    {% endfor %}
+                    </ol>
                 {% endfor %}
             </ol>
             </li>

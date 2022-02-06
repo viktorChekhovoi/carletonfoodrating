@@ -1,11 +1,13 @@
+from email.policy import default
 from urllib import request
 from flask import render_template
-from app import app, db
+from app import app, db, foods
 from app.forms import RateForm
 from app.models import DiningHall, Station, Food, Rating
 from flask import render_template, flash, redirect
-from app.getMenu import Parser
-
+from getMenu import Parser
+from getWeekMenu import MenuParser
+from collections import defaultdict
 
 
 def getBurtonJson():
@@ -16,51 +18,59 @@ def getBurtonJson():
 
 def makeForms(menus: str):
     forms = dict()
-    for station in menus:
-        #print(station)
-        for foodItem in menus[station]:
-            if station not in forms:
-                forms[station] = {}
-            newForm = RateForm()
-            newForm.name = f'{station}:{foodItem}'
-            forms[station][foodItem["name"]] = newForm
+    for meal in menus:
+        if meal not in forms:
+            forms[meal] = dict()
+        for station in menus[meal]:
+            if len(menus[meal][station]) != 0:
+                if station not in forms[meal]:
+                    forms[meal][station] = {}
+                for foodItem in menus[meal][station]:
+                    newForm = RateForm()
+                    newForm.name = f'{meal}:{station}:{foodItem}'
+                    forms[meal][station][foodItem] = {}
+                    forms[meal][station][foodItem]["form"] = newForm
+                    food_db = Food.query.filter_by(name=foodItem).all()[0]
+                    try:
+                        forms[meal][station][foodItem]["rate"] = food_db.average_rating
+                    except:
+                        forms[meal][station][foodItem]["rate"] = 0.0
     return forms
 
 
-def updateAverage(food):
-    food_db = Food.query.filter_by(name=food).all()
-    if len(food_db) != 0:
-        food_db = food_db[0]
-        newRating = Rating(rating=food.rating.data, foodRated=food_db)
-        db.session.add(newRating)
-        total = 0
-        numRatings = 0
-        allRatings = Rating.query.filter_by(foodRated=food_db).all()
-        for rating in allRatings:
-            numRatings += 1
-            total += rating.rating
+def updateAverage(food, form):
+    newRating = Rating(rating=form.rating.data, foodRated=food)
+    db.session.add(newRating)
+    db.session.commit()
+    total = 0
+    numRatings = 0
+    allRatings = Rating.query.filter_by(foodRated=food).all()
+    for rating in allRatings:
+        numRatings += 1
+        total += rating.rating
 
-        averageRating = total/numRatings
-        return averageRating
-    return food.averageRating
+    averageRating = total/numRatings
+    return averageRating
 
 
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
-def index():
-    
-    food = {"Pizza": [{"name": "Cheese", "rate": 9}, {"name": "Pepperoni", "rate": 8}]}
-    
-    forms = makeForms(food)
-    parser = Parser("burton")
-    print(parser.isOpen())
-    parser.getMenuHtml()
-    for station in forms:
-        for food in forms[station]:
-            if forms[station][food].validate_on_submit():
-                food.averate_rating = updateAverage(food)
-                return redirect('/index')
-                
-    food = {"Pizza": [{"name": "Cheese", "rate": 9}, {"name": "Pepperoni", "rate": 8}]}
-    return render_template('index.html', food=food, forms=forms)
+def index():   
+    forms = makeForms(foods)
+    for meal in forms:
+        for station in forms[meal]:
+            for foodItem in forms[meal][station]:
+                form = forms[meal][station][foodItem]["form"]
+                if form.validate_on_submit():
+                    food_db = Food.query.filter_by(name=foodItem).all()
+                    if len(food_db) == 0:
+                        return redirect('/')
+                    food_db = food_db[0]
+                    food_db.averate_rating = updateAverage(food_db, form)
+                    db.session.add(food_db)
+                    db.session.commit()
+                    print(f"Updated average for {foodItem}, it's now {Food.query.filter_by(name=foodItem).all()[0].average_rating}")
+                    return redirect('/')
+
+    return render_template('index.html', food=foods, forms=forms)

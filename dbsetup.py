@@ -1,50 +1,37 @@
+from calendar import weekday
+from datetime import datetime
 import app
 from app import models
 from app.models import *
+from getWeekMenu import MenuParser
 
 DiningHall.query.delete()
 Station.query.delete()
+Food.query.delete()
+print("Deleted old data")
 
 burton = DiningHall(name="Burton")
-ldc = DiningHall(name="LDC")
-
+#ldc = DiningHall(name="LDC")
 db.session.add(burton)
-db.session.add(ldc)
+#db.session.add(ldc)
 db.session.commit()
+print("Added dining halls")
 
-print(DiningHall.query.all())
-#burton = DiningHall.query.all()[0]
-#ldc = DiningHall.query.all()[1]
-
-burton_kettle = Station(name="Kettle", hall=burton)
-burton_nourish = Station(name="Nourish", hall=burton)
-burton_grill = Station(name="Grill", hall=burton)
-burton_pasta = Station(name="Pasta", hall=burton)
-burton_global = Station(name="Global", hall=burton)
-
-ldc_cereal = Station(name="Hot Cereal", hall=ldc)
-ldc_soup = Station(name="Soup", hall=ldc)
-ldc_cucina = Station(name="Cucina", hall=ldc)
-ldc_american = Station(name="American Regional", hall=ldc)
-ldc_pizza = Station(name="Cucina Pizza", hall=ldc)
-ldc_deli = Station(name="Market Deli", hall=ldc)
-
-db.session.add(burton_kettle)
-db.session.add(burton_nourish)
-db.session.add(burton_grill)
-db.session.add(burton_pasta)
-db.session.add(burton_global)
-
-db.session.add(ldc_cereal)
-db.session.add(ldc_american)
-db.session.add(ldc_cucina)
-db.session.add(ldc_deli)
-db.session.add(ldc_pizza)
-db.session.add(ldc_soup)
-
-
-print("Added everything\n\n\n")
+parser = MenuParser()
+currentMenu = parser.parseToday()
+burtonStations = currentMenu['Dinner'].keys()
+stations = {}
+for station in burtonStations:
+    stations[station] = Station(name=station, hall=burton)
+    db.session.add(stations[station])
 
 db.session.commit()
-print(Station.query.where(Station.hall==burton).all())
-print(Station.query.where(Station.hall==ldc).all())
+print("Added stations\n\n\n")
+for meal in currentMenu:
+    for station in currentMenu[meal]:
+        for foodItem in currentMenu[meal][station]:
+            db.session.add(Food(name=foodItem, averate_rating=1.5, station_location=stations[station]))
+
+db.session.commit()
+
+print("Added foods")

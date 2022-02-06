@@ -23,8 +23,10 @@ class Station(db.Model):
 class Food(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), index=True)
-    averate_rating = db.Column(db.Float)
+    averate_rating = db.Column(db.Float, default=1.5, nullable=False)
     stationId = db.Column(db.Integer, db.ForeignKey('station.id'))
+    def __repr__(self):
+        return f'<{self.name} Food with rating {self.averate_rating}>'
 
     ratings = db.relationship('Rating', backref='foodRated', lazy='dynamic')
 
