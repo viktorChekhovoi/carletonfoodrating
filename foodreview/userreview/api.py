@@ -1,38 +1,40 @@
-from bs4 import BeautifulSoup
+from typing import TypedDict
+from bs4 import BeautifulSoup as bs
 from urllib.request import Request, urlopen
 import re
+from menu import Menu
+import requests
+from constants import *
 
-SAYLES = "sayles-hill-cafe"
-BURTON = "burton"
-LDC = "east-hall"
-ANDERSON = "schulze-cafe"
-WEITZ = "weitz-cafe"
-
-requestPrefix = "https://carleton.cafebonappetit.com/cafe/"
-diningHalls = ["schulze-cafe", "sayles-hill-cafe", "weitz-cafe", "east-hall", "burton"]
 
 def getCafeLink(cafe: str) -> str:
-    assert cafe in diningHalls
-
-    
-    return f"{requestPrefix}{cafe}"
+    return f"{REQUEST_PREFIX}{cafe}"
 
 
+def getCurrentWeekMenuLink(cafe: str) -> str:
+    assert cafe in DINING_HALLS, f"invalid cafeteria: {cafe}"
+    cafeLink: str = getCafeLink(cafe)
+    bonAppetitCompleteWebpage: str = requests.get(cafeLink).content.__str__()
+    getLinkPattern: str = r"https://legacy\.cafebonappetit\.com/weekly-menu/[^\']*"
+    currentWeekMenuLink: str = re.findall(
+        pattern=getLinkPattern, string=bonAppetitCompleteWebpage
+    )[0]
 
-with open("links.txt", "w") as output:
-    for i in range(0, 5):
-        html_page = urlopen(diningHalls[i])
-        soup = BeautifulSoup(html_page, "html5lib")
+    return currentWeekMenuLink
 
-        for link in soup.findAll('a'):
-            if link.get('href'):
-                if link.get('href').find("https://legacy.cafebonappetit.com/weekly-menu/") != -1:
-                    output.write(diningHallsNumberToStrings[i] + ": ")
-                    output.write(link.get('href') + '\n')
-                    break
 
-# links = []
+def getWeeklyStationMenu(cafe: str) -> Menu:
+    """
+    Returns a dictionary weekMenu, where weekMenu[day of the week][station]
+    is the list of food available at a given station at a given time of day
+    """
+    currentWeekMenuLink = getCurrentWeekMenuLink(cafe)
+    thisWeeksMenu = requests.get(currentWeekMenuLink).content
 
-# for link in soup.findAll('a'):
-#     links.append(link.get('href'))
+    bs4Search = bs(thisWeeksMenu, "html.parser")
+    for station in bs4Search.find_all("div", {"class": ["row", "row odd"]}):
+        stationName = station.find("span", {"class": ["stationname"]}).text
+        print(stationName)
 
+
+getWeeklyStationMenu(BURTON)

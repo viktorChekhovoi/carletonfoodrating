@@ -27,12 +27,14 @@ def makeForms(menus: str):
                     forms[meal][station] = {}
                 for foodItem in menus[meal][station]:
                     newForm = RateForm()
-                    newForm.name = f'{meal}:{station}:{foodItem}'
+                    newForm.name = f"{meal}:{station}:{foodItem}"
                     forms[meal][station][foodItem] = {}
                     forms[meal][station][foodItem]["form"] = newForm
                     food_db = Food.query.filter_by(name=foodItem).all()[0]
                     try:
-                        forms[meal][station][foodItem]["rate"] = "{:.2f}".format(food_db.rating())
+                        forms[meal][station][foodItem]["rate"] = "{:.2f}".format(
+                            food_db.rating()
+                        )
                     except:
                         forms[meal][station][foodItem]["rate"] = 0.0
     return forms
@@ -49,28 +51,27 @@ def updateAverage(food, form):
         numRatings += 1
         total += rating.rating
 
-    averageRating = total/numRatings
+    averageRating = total / numRatings
     return averageRating
 
 
-
-@app.route('/', methods=['GET', 'POST'])
-@app.route('/index', methods=['GET', 'POST'])
-def index():   
+@app.route("/", methods=["GET", "POST"])
+@app.route("/index", methods=["GET", "POST"])
+def index():
     forms = makeForms(foods)
     for meal in forms:
         for station in forms[meal]:
             for foodItem in forms[meal][station]:
                 form = forms[meal][station][foodItem]["form"]
                 if form.validate_on_submit():
-                    if request.form['fieldName'] == f'{foodItem}:{station}':
+                    if request.form["fieldName"] == f"{foodItem}:{station}":
                         food_db = Food.query.filter_by(name=foodItem).all()
                         if len(food_db) == 0:
-                            return redirect('/')
+                            return redirect("/")
                         food_db = food_db[0]
                         food_db.averate_rating = updateAverage(food_db, form)
                         db.session.add(food_db)
                         db.session.commit()
-                        return redirect('/')
+                        return redirect("/")
 
-    return render_template('index.html', food=foods, forms=forms)
+    return render_template("index.html", food=foods, forms=forms)
